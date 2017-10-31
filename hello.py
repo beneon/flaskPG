@@ -1,15 +1,23 @@
-from flask import Flask
-from flask.ext.script import Manager
-app = Flask(__name__)
-manager = Manager(app)
+# hello.py
+# main script for flasky learning playground
+# chapter 3, jinja
 
+# importing
+# =================================
+from flask import Flask
+from flask import render_template
+
+app = Flask(__name__)
+
+# router area
+# =================================
 @app.route('/')
 def index():
-    return '<h1>hello world</h1>'
+    return render_template('index.html')
 
 @app.route('/user/<name>')
 def user(name):
-    return '<h1>hello {0}!</h1>'.format(name)
+    return render_template('user.html',name=name)
 
 if __name__ == '__main__':
-    manager.run()
+    app.run(debug=True)
