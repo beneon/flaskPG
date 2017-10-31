@@ -6,9 +6,12 @@
 # =================================
 from flask import Flask
 from flask import render_template
+from flask.ext.bootstrap import Bootstrap
+from flask.ext.script import Manager
 
 app = Flask(__name__)
-
+manager = Manager(app)
+bootstrap = Bootstrap(app)
 # router area
 # =================================
 @app.route('/')
@@ -17,21 +20,7 @@ def index():
 
 @app.route('/user/<name>')
 def user(name):
-    values=[1,2,2,3,4,5,4,6,7]
-    return render_template('user.html',name=name,values = values)
-
-@app.route('/test/<selector>')
-def testVar(selector):
-    mydict = dict()
-    mydict['a']='t'
-    mydict['t']='a'
-    mylist = [1,2,3,4,5]
-    key = 'a'
-    myintvar = int(selector)
-    class myobj:
-        def somemethod():
-            return "test some method"
-    return render_template('test.html',mydict=mydict,key=key,mylist=mylist,myintvar=myintvar,myobj=myobj)
+    return render_template('user.html',name=name)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run()
